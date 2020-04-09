@@ -32,6 +32,15 @@ func TestPowershellProvisioner_Script(t *testing.T) {
 	acc.TestProvisionersAgainstBuilders(&testProvisioner, t)
 }
 
+func TestPowershellProvisioner_Invalid(t *testing.T) {
+	acc.TestProvisionersPreCheck(TestProvisionerName, t)
+
+	// This test should fail with a non-zero exit code. To assert the failure the fixture
+	// uses the valid_exit_codes option to confirm a non-zero exit code
+	testProvisioner := PowershellProvisionerAccTest{"powershell-provisioner-invalid.txt"}
+	acc.TestProvisionersAgainstBuilders(&testProvisioner, t)
+}
+
 type PowershellProvisionerAccTest struct {
 	ConfigName string
 }
